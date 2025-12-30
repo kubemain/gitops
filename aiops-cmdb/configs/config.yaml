@@ -1,0 +1,43 @@
+server:
+  name: "aiops-cmdb"
+  port: 8002
+  mode: debug
+  read_timeout: 30
+  write_timeout: 30
+
+database:
+  host: "10.102.28.79"
+  port: 3306
+  username: "ops_user"
+  password: "123456"
+  database: "aiops_cmdb"
+  charset: "utf8mb4"
+  max_idle_conns: 10
+  max_open_conns: 100
+  log_level: "error"
+
+redis:
+  host: "10.102.28.79"
+  port: 6379
+  password: "123456"
+  db: 1
+  pool_size: 10
+
+consul:
+  address: "127.0.0.1:8500"
+  scheme: "http"
+  service_name: "aiops-cmdb"
+  service_id: "aiops-cmdb-1"
+  service_address: "20.3.11.7"
+  service_port: 8002
+  health_check_interval: "10s"
+  deregister_critical_service_after: "30s"
+
+jwt:
+  secret: "ops-platform-secret-key-change-in-production"
+  expire_hours: 24
+
+log:
+  level: info
+  format: json
+  output: stdout

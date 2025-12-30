@@ -1,0 +1,109 @@
+server:
+  port: 8000
+  mode: debug  # debug, release
+  read_timeout: 10
+  write_timeout: 10
+
+consul:
+  address: "127.0.0.1:8500"
+  scheme: "http"
+
+redis:
+  host: "10.102.28.79"
+  port: 6379
+  password: "123456"
+  db: 0
+  pool_size: 10
+
+jwt:
+  secret: "ops-platform-secret-key-change-in-production"
+  expire_hours: 24
+
+ratelimit:
+  enabled: true
+  requests_per_second: 100
+  burst: 200
+
+circuit_breaker:
+  enabled: true
+  max_requests: 3
+  interval: 10  # 秒
+  timeout: 60   # 秒
+
+log:
+  level: info  # debug, info, warn, error
+  format: json
+  output: stdout
+
+trace:
+  enabled: true
+  jaeger_endpoint: "http://localhost:14268/api/traces"
+  service_name: "aiops-gateway"
+
+# 服务路由配置
+routes:
+  - name: "user-service"
+    prefix: "/api/v1/users"
+    service_name: "aiops-user-service"
+    strip_prefix: false
+    auth_required: true
+
+  - name: "auth-service"
+    prefix: "/api/v1/auth"
+    service_name: "aiops-user-service"
+    strip_prefix: false
+    auth_required: false
+
+  - name: "role-service"
+    prefix: "/api/v1/roles"
+    service_name: "aiops-user-service"
+    strip_prefix: false
+    auth_required: true
+
+  - name: "permission-service"
+    prefix: "/api/v1/permissions"
+    service_name: "aiops-user-service"
+    strip_prefix: false
+    auth_required: true
+
+  - name: "ai-brain-service"
+    prefix: "/api/v1/ai"
+    service_name: "aiops-ai-brain"
+    strip_prefix: false
+    auth_required: true
+
+  - name: "cmdb-service"
+    prefix: "/api/v1/cmdb"
+    service_name: "aiops-cmdb"
+    strip_prefix: false
+    auth_required: true
+
+  - name: "monitor-service"
+    prefix: "/api/v1/metrics"
+    service_name: "aiops-monitor"
+    strip_prefix: false
+    auth_required: true
+
+  - name: "knowledge-service"
+    prefix: "/api/v1/docs"
+    service_name: "aiops-knowledge"
+    strip_prefix: false
+    auth_required: true
+
+  - name: "workflow-service"
+    prefix: "/api/v1/tickets"
+    service_name: "aiops-workflow"
+    strip_prefix: false
+    auth_required: true
+
+  - name: "analytics-service"
+    prefix: "/api/v1/analytics"
+    service_name: "aiops-analytics"
+    strip_prefix: false
+    auth_required: true
+
+  - name: "graph-service"
+    prefix: "/api/v1/graph"
+    service_name: "aiops-knowledge-graph"
+    strip_prefix: false
+    auth_required: true

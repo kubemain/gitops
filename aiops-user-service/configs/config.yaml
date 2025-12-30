@@ -1,0 +1,39 @@
+# configs/config.yaml
+
+server:
+  host: "0.0.0.0"
+  port: 8001
+  mode: debug  # debug, release
+
+mysql:
+  host: 10.102.28.79  # Docker 内改为 ops-mysql
+  port: 3306
+  username: ops_user
+  password: "123456"
+  database: aiops_user_service
+  charset: utf8mb4
+  max_idle_conns: 10
+  max_open_conns: 100
+  log_level: error  # silent, error, warn, info
+
+redis:
+  host: 10.102.28.79  # Docker 内改为 ops-redis
+  port: 6379
+  password: "123456"
+  db: 0
+  pool_size: 10
+
+jwt:
+  secret: "ops-platform-secret-key-change-in-production"
+  expire_hours: 24
+  issuer: "ops-platform"
+
+log:
+  level: info  # debug, info, warn, error
+  format: json  # json, console
+  output: stdout  # stdout, file
+  filename: logs/app.log
+
+consul:
+  address: "127.0.0.1:8500"  # 如果 Consul 在远程，改为 10.102.28.79:8500
+  scheme: "http"

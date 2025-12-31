@@ -486,23 +486,25 @@ const scrollToBottom = () => {
 
 // 节点跳转函数
 const navigateTo = (nodeName) => {
-  console.log('点击节点:', nodeName)
+  console.log('=== 节点点击事件 ===')
+  console.log('节点名称:', nodeName)
 
-  // 系统管理相关（已开发）
-  const developedRoutes = {
-    '日常运维': '/system/user',
-    '监控管理': '/system/user',
-    '统计与分析': '/system/user',
-    '流程管理': '/system/user',
-    '知识管理': '/system/user'
+  // 直接处理CMDB相关节点
+  if (nodeName === '日常运维' || nodeName === 'CMDB') {
+    console.log('检测到CMDB相关节点，准备跳转到:', '/cmdb/hosts')
+    router.push('/cmdb/hosts')
+    return
   }
 
-  if (developedRoutes[nodeName]) {
-    router.push(developedRoutes[nodeName])
+  // 其他已开发节点
+  if (nodeName === '监控管理' || nodeName === '统计与分析' || nodeName === '流程管理' || nodeName === '知识管理') {
+    console.log('检测到系统管理相关节点，跳转到:', '/system/user')
+    router.push('/system/user')
     return
   }
 
   // 未开发的功能提示
+  console.log('未开发节点:', nodeName)
   ElMessage({
     message: `功能「${nodeName}」正在开发中，敬请期待...`,
     type: 'info',
